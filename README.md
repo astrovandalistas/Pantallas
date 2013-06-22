@@ -1,23 +1,24 @@
-Pantalla maestra + pantallas esclavas
+<h1>Pantalla maestra + pantallas esclavas</h1>
 
-    Todas las pantallas tienen la capacidad de
+<h2>Todas las pantallas tienen la capacidad de</h2>
 
-    a. recibir un mensaje OSC ( direccion, "mensaje", x, y, fontsize )
+a. recibir un mensaje OSC ( direccion, "mensaje", x, y, fontsize )
 
-    b. dibujarlo
+b. dibujarlo
 
-    c. asignarse una posición dentro de un conjunto ( propuesta: utilizando un keypad )
+c. asignarse una posición dentro de un conjunto ( propuesta: utilizando un keypad )
 
-    hay una pantalla central que:
 
-    a. saber cuántas otras pantallas esclavas tiene ( al principio será hardcodeado, más adelante las "autodscubrirá"
+<h2>hay una pantalla central que:</h2>
 
-    b. generar un objeto "Canvas" con base en el número total de pantallas
+a. saber cuántas otras pantallas esclavas tiene ( al principio será hardcodeado, más adelante las "autodscubrirá"
 
-    c. recibe todos los mensajes
+b. generar un objeto "Canvas" con base en el número total de pantallas
 
-    d. genera las animaciones utilizando puras variables
+c. recibe todos los mensajes
 
-    e. envía mensajes a cada una de las pantallas esclavas para que grafiquen su parte de la animación
+d. genera las animaciones utilizando puras variables
 
-    f. dibuja también la parte que le corresponde a su pantalla física
+e. envía mensajes a cada una de las pantallas esclavas para que grafiquen su parte de la animación
+
+f. dibuja también la parte que le corresponde a su pantalla física
