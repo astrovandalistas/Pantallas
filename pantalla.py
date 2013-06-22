@@ -99,10 +99,6 @@ def getMessages() :
 
 
 
-# canvasMessages = []
-
-
-
 def animate() :
 
 	messages = getMessages()
