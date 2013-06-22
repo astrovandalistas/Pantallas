@@ -1,10 +1,13 @@
-en pseudocódigo:
+# en pseudocódigo:
 
 `
 class Canvas:
 	x = 0
 	y = 0
 	segments = []
+	
+	def getSegments() :
+		return segments
 
 	def appendSegment( self, width, height ) :
 
@@ -118,6 +121,10 @@ def animate() :
 
 def draw() :
 
+	if not isMaster :
+		#draw
+
+
 	return
 
 
@@ -141,9 +148,20 @@ def main() :
 					# enviar mensajes OSC a pantallas esclavas con el formato
 					# ( "direccion/a/pantallaN", x, y, fontsize )
 
-					direccion = "direccion/a/pantallaN"
 
-					sendOSC ( direccion, message.x, message.y, message.fontsize )
+					# revisar segmetnos del canvas y geometrí del mensaje (x,y,w)
+					# para saber a qué pantalla(s) debe ir el mensaje
+
+					direcciones = []
+
+					for ( segmento in canvas.getSegments() )
+
+						if ( mensaje dentro de segmento  )
+							direcciones.add "direccion/a/pantallaN"
+
+
+					for direccion in direcciones : 
+						sendOSC ( direccion, message.x, message.y, message.fontsize )
 
 			else:
 				# dibujar aqui el mensaje OSC ( "direccion/a/pantallaN", x, y, fontsize )
