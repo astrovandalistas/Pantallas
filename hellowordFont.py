@@ -27,12 +27,13 @@ def create_text(text, fonts, size, color):
     image = _cached_text.get(key, None)
     if image == None:
         font = get_font(fonts, size)
+        get_bold() 
         image = font.render(text, True, color)
         _cached_text[key] = image
     return image
 
 pygame.init()
-screen = pygame.display.set_mode((1024, 768))
+screen = pygame.display.set_mode((1024, 768))  
 clock = pygame.time.Clock()
 done = False
 
@@ -42,7 +43,7 @@ font_preferences = [
         "Arial",
         "Comic Sans MS"]
 
-text = create_text("Hola Mundo", font_preferences, 60, (0, 200, 0))
+text = create_text("Hola Mundo", font_preferences, 60, (2, 200, 0))
 
 while not done:
     for event in pygame.event.get():
@@ -53,7 +54,7 @@ while not done:
     
     screen.fill((0, 0, 0))
     screen.blit(text,
-        (320 - text.get_width() // 2, 240 - text.get_height() // 2))
+        (520 - text.get_width() // 2, 340 - text.get_height() // 2))
     
     pygame.display.flip()
     clock.tick(60)
