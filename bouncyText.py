@@ -7,7 +7,7 @@ def flytext(msg="aeffect lab", duration=5):
     """BOUNCY TEXT"""
 
     def newcolour():
-        return (random.randint(10,150), random.randint(145,165), random.randint(10,50))
+        return (random.randint(10,150), random.randint(145,165), random.randint(10,250))
 
     def write(msg="_tecnologías disruptivas", duration=3):
         myfont = pygame.font.SysFont("None", random.randint(30,150))
@@ -44,7 +44,7 @@ def flytext(msg="aeffect lab", duration=5):
         if x < 0:
            x = 0
            dx *= -1
-           screen.blit(background, (0,0)) # limpia la pantalla
+           screen.blit(background, (4,4)) # limpia la pantalla
         elif x + textsurface.get_width() > screen.get_width():
             x = screen.get_width() - textsurface.get_width()
             dx *= -1
