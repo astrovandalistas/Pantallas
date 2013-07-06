@@ -20,8 +20,10 @@ def flytext(msg="aeffect lab", duration=5):
     y = 260
     dx = 45
     dy = 45
+    
+    flags = pygame.FULLSCREEN|pygame.DOUBLEBUF|pygame.HWSURFACE
 
-    screen = pygame.display.set_mode((1200,800))
+    screen = pygame.display.set_mode((0, 0),flags)
     background = pygame.Surface((screen.get_width(), screen.get_height()))
     background.fill((0,0,0)) # negro
     background = background.convert()

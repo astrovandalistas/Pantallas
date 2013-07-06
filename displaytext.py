@@ -20,12 +20,14 @@ INTRO_TEXT = ['Somos un colectivo translocal',
  'bajo la logica del hacking urbano y la divulgacion',
  'libre del conocimiento generado.',]
  
-screen = pygame.display.set_mode(SIZE)
+flags = pygame.FULLSCREEN|pygame.DOUBLEBUF|pygame.HWSURFACE
+
+screen = pygame.display.set_mode((0, 0),flags)
   
 def initializeFont(string,pos1,pos2,pos3,pos4,color):
          if pygame.font:
               verdana = pygame.font.match_font('Verdana')
-              font = pygame.font.Font(verdana,30)
+              font = pygame.font.Font(verdana,50)
               text = font.render(string,1,color)
               textpos = pygame.Rect(pos1,pos2,pos3,pos4)
               pygame.display.get_surface().blit(text,textpos)
@@ -39,7 +41,7 @@ def displayText(textList):
       pygame.display.get_surface().fill(BLACK)
       for string in textList:
                initializeFont(string,pos1,pos2,pos3,pos4,TAN)
-               pos2 += 45
+               pos2 += 55
                pygame.display.update()
                textEventLoop()
                
