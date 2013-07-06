@@ -5,23 +5,26 @@
 import pygame
 
 pygame.init()
-x = 260
+x = 300
 y = 260
 dx = 45
 dy = 45
+
 # crear una pantalla
-screen = pygame.display.set_mode((400, 400))
+flags = pygame.FULLSCREEN|pygame.DOUBLEBUF|pygame.HWSURFACE
+screen = pygame.display.set_mode((0, 0),flags)
+pygame.mouse.set_visible(False)
 
 # texto a mostrar
-font = pygame.font.Font(None, 66)
-text = font.render("Disruptivo", True, (100, 100, 100))
+font = pygame.font.Font(None, 200)
+text = font.render("Disruptivo", True, (255, 100, 100))
 
 display = True
 
-# loon principa;
+# loop principal;
 while pygame.time.get_ticks() < 10000: # corre el programa por 10 segundo
      # bora la pantalla
-     screen.fill((255, 255, 255))
+     screen.fill((0, 0, 0))
 
      display = not display
 
