@@ -17,12 +17,12 @@ INTRO_TEXT = ['Somos un colectivo translocal',
  'que se enfoca en el desarrollo de',
  'proyectos que conjuntan investigacion,',
  'accion artistica, tecnologia y activismo,',
- 'bajo la logica del hacking urbano y la divulgacion',
- 'libre del conocimiento generado.',]
+ 'bajo la logica del hacking urbano',
+ 'y la divulgacion libre del conocimiento.',]
  
 flags = pygame.FULLSCREEN|pygame.DOUBLEBUF|pygame.HWSURFACE
-
 screen = pygame.display.set_mode((0, 0),flags)
+pygame.mouse.set_visible(False)
   
 def initializeFont(string,pos1,pos2,pos3,pos4,color):
          if pygame.font:
