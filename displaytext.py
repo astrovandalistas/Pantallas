@@ -9,7 +9,7 @@ BLACK = (0,0,0)
 GREEN = (0,255,0, alpha)
 BLUE = (255, 80, 5, alpha)
 WHITE = (255,255,255, alpha)
-TAN = (210, 180, 140) 
+TAN = (10, 180, 140) 
 SIZE = 1200, 900 
 
 
@@ -23,25 +23,28 @@ INTRO_TEXT = ['Somos un colectivo translocal',
 flags = pygame.FULLSCREEN|pygame.DOUBLEBUF|pygame.HWSURFACE
 screen = pygame.display.set_mode((0, 0),flags)
 pygame.mouse.set_visible(False)
+
+if not pygame.font: print 'Warning, fonts disabled'
+if not pygame.mixer: print 'Warning, sound disabled'
   
 def initializeFont(string,pos1,pos2,pos3,pos4,color):
          if pygame.font:
-              verdana = pygame.font.match_font('Verdana')
-              font = pygame.font.Font(verdana,50)
+sverdana = pygame.font.match_font('Verdana')
+              font = pygame.font.Font(verdana,55)
               text = font.render(string,1,color)
               textpos = pygame.Rect(pos1,pos2,pos3,pos4)
               pygame.display.get_surface().blit(text,textpos)
               
 
 def displayText(textList):
-      pos1 = 50
-      pos2 = 150
+      pos1 = 100
+      pos2 = 50
       pos3 = 50
       pos4 = 50
       pygame.display.get_surface().fill(BLACK)
       for string in textList:
                initializeFont(string,pos1,pos2,pos3,pos4,TAN)
-               pos2 += 55
+               pos2 += 90
                pygame.display.update()
                textEventLoop()
                

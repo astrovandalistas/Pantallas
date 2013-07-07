@@ -5,7 +5,7 @@
 import pygame
 
 pygame.init()
-x = 300
+x = 800
 y = 260
 dx = 45
 dy = 45
@@ -22,7 +22,7 @@ text = font.render("Disruptivo", True, (255, 100, 100))
 display = True
 
 # loop principal;
-while pygame.time.get_ticks() < 10000: # corre el programa por 10 segundo
+while pygame.time.get_ticks() < 4000: # corre el programa por 10 segundo
      # bora la pantalla
      screen.fill((0, 0, 0))
 
@@ -30,7 +30,7 @@ while pygame.time.get_ticks() < 10000: # corre el programa por 10 segundo
 
      # dibuja el texto en la pantalla si display es True
      if display:
-         screen.blit(text, (100, 100))
+         screen.blit(text, (250, 300))
 
      # update screen
      pygame.display.flip()

@@ -3,7 +3,7 @@
 import pygame
 import random
 
-def flytext(msg="aeffect lab", duration=5):
+def flytext(msg="#AEffectLab", duration=5):
     """BOUNCY TEXT"""
 
     def newcolour():
@@ -40,7 +40,7 @@ def flytext(msg="aeffect lab", duration=5):
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     mainloop = False # usuario presiona ESC
-        textsurface = write("aeffect lab", 4)
+        textsurface = write("#AEffectLab", 2)
         x += dx
         y += dy
         if x < 0:
