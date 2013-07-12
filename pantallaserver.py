@@ -60,7 +60,7 @@ class PantallaServer(PrototypeInterface):
             words = txt.split()
             for w in words:
                 msg = OSCMessage()
-                msg.setAddress("/LocalNet/"+locale+"/"+type)
+                msg.setAddress("/AeffectLab/"+locale+"/"+type)
                 msg.append(w)
                 (ip,port) = self.allClients.keys()[clientIndex]
 
