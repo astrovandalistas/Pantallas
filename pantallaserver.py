@@ -54,7 +54,24 @@ class PantallaServer(PrototypeInterface):
 
     def loop(self):
         ## check Queue, split stuff and send to clients
-        pass
+        if (not self.messageQ.empty()):
+            (locale,type,txt) = self.messageQ.get()
+            clientIndex = 0
+            words = txt.split()
+            for w in words:
+                msg = OSCMessage()
+                msg.setAddress("/LocalNet/"+locale+"/"+type)
+                msg.append(w)
+                (ip,port) = self.allClients.keys()[clientIndex]
+
+                try:
+                    self.oscClient.connect((ip, int(port)))
+                    self.oscClient.sendto(msg, (ip, int(port)))
+                    self.oscClient.connect((ip, int(port)))
+                except OSCClientError:
+                    print "no connection to %s:%s, can't send message "%(ip,port)
+
+                clientIndex = (clientIndex+1)%len(self.allClients.keys())
 
 if __name__=="__main__":
     ## TODO: get ip and ports from command line
