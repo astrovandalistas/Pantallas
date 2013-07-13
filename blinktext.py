@@ -5,8 +5,8 @@
 import pygame
 
 pygame.init()
-x = 800
-y = 260
+x = 100
+y = 100
 dx = 45
 dy = 45
 
@@ -17,7 +17,7 @@ pygame.mouse.set_visible(False)
 
 # texto a mostrar
 font = pygame.font.Font(None, 200)
-text = font.render("Disruptivo", True, (255, 100, 100))
+text = font.render("Disruptive", True, (255, 100, 100))
 
 display = True
 
