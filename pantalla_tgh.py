@@ -39,8 +39,7 @@ class Pantalla(PrototypeInterface):
             (locale,type,txt) = self.messageQ.get()
             words = txt.split()
             lasrgestWord = max(txt.split(),key=len)
-            index = 0
-            for w in words:
+            for (index,w) in enumerate(words):
                 self._checkEvent()
                 bgndC = (0,0,0) if(index%2 or w == lasrgestWord) else (255,255,255)
                 textC = (128,0,0) if (w == lasrgestWord) else((255,255,255) if index%2 else (0,0,0))
