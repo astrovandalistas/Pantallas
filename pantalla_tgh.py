@@ -28,17 +28,38 @@ class Pantalla(PrototypeInterface):
         self.screen.blit(self.background, (0, 0))
         pygame.display.flip()
 
-        s = "Aeffect Lab es un framework para facilitar la creación de modelos afectivos de comunicación".decode('utf-8')
-        self.messageQ.put(("t","t",s))
+        s = "Aeffect Lab es un framework framework framework framework para facilitar la creación de modelos"
+        s += " afectivos de comunicación comunicacion comunicacion comunicación"
+        self.messageQ.put(("t","t",s.decode('utf-8')))
 
-    def _fadeTextInOut(self,txt):
+    def loop(self):
+        self._checkEvent()
+        ## check state
+        if (not self.messageQ.empty()):
+            (locale,type,txt) = self.messageQ.get()
+            words = txt.split()
+            lasrgestWord = max(txt.split(),key=len)
+            for (index,w) in enumerate(words):
+                self._checkEvent()
+                bgndC = (0,0,0) if(index%2 or w == lasrgestWord) else (255,255,255)
+                textC = (128,0,0) if (w == lasrgestWord) else((255,255,255) if index%2 else (0,0,0))
+                self._fadeTextInOut(w,bgndC,textC)
+                index += 1
+
+    def _checkEvent(self):
+        for event in pygame.event.get():
+            if ((event.type == pygame.QUIT) or
+                (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE)):
+                raise KeyboardInterrupt
+
+    def _fadeTextInOut(self,txt,bgndColor=(0,0,0),textColor=(255,255,255)):
         alpha = 1
         alphaD = 64
         dispTime = 0
         (FADEIN,FADEOUT,DISPLAY) = range(3)
         currState = FADEIN
 
-        mSurface = self.font.render(txt+" ", 1, (255,255,255), (0,0,0))
+        mSurface = self.font.render(txt+" ", 1, textColor, bgndColor)
         mRect = mSurface.get_rect()
         scale = min(float(self.background.get_width())/mRect.width, float(mRect.width)/self.background.get_width())
         mSurface = pygame.transform.scale(mSurface,(int(scale*mRect.width),int(scale*mRect.height)))
@@ -59,25 +80,10 @@ class Pantalla(PrototypeInterface):
                 alpha -= alphaD
 
             mSurface.set_alpha(alpha)
-            self.background.fill((0,0,0))
+            self.background.fill(bgndColor)
             self.background.blit(mSurface, mRect)
             self.screen.blit(self.background, (0,0))
             pygame.display.flip()
-
-
-    def loop(self):
-        ## handle events
-        for event in pygame.event.get():
-            if ((event.type == pygame.QUIT) or
-                (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE)):
-                raise KeyboardInterrupt
-
-        ## check state
-        if (not self.messageQ.empty()):
-            (locale,type,txt) = self.messageQ.get()
-            words = txt.split()
-            for w in words:
-                self._fadeTextInOut(w)
 
 if __name__=="__main__":
     ## TODO: get ip and ports from command line
