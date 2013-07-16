@@ -29,7 +29,7 @@ if not pygame.mixer: print 'Warning, sound disabled'
   
 def initializeFont(string,pos1,pos2,pos3,pos4,color):
          if pygame.font:
-sverdana = pygame.font.match_font('Verdana')
+              verdana = pygame.font.match_font('Verdana')
               font = pygame.font.Font(verdana,55)
               text = font.render(string,1,color)
               textpos = pygame.Rect(pos1,pos2,pos3,pos4)

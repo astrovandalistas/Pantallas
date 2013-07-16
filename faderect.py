@@ -9,7 +9,7 @@ fpsClock = pygame.time.Clock()
 screen = pygame.display.set_mode((1280,800))
 shape = screen.convert_alpha()
  
-alpha = 0
+alpha = 1
 WHITE = (255, 255, 255,alpha)
 BLACK = (0,0,0)
  
@@ -28,5 +28,5 @@ def fade():
     pygame.display.update(stimulus)
     fpsClock.tick(FPS)
  
-while True:
+while alpha!=0:
     fade() 
