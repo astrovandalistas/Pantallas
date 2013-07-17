@@ -6,7 +6,7 @@ pygame.init()
 
 sound = pygame.mixer.Sound("dash.wav")
 
-#canada
+#canales
 channel = sound.play()
 channel.set_volume(1, 0)
 time.sleep(1)
