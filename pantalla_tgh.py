@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import sys, time, subprocess, pygame
+import sys, time, subprocess, pygame, getopt
 sys.path.append("../LocalNet")
 from interfaces import PrototypeInterface, runPrototype
 
@@ -86,6 +86,15 @@ class Pantalla(PrototypeInterface):
             pygame.display.flip()
 
 if __name__=="__main__":
-    ## TODO: get ip and ports from command line
-    mAST = Pantalla(6666,"127.0.0.1",7777)
+    (inPort, localNetAddress, localNetPort) = (7878, "127.0.0.1", 8989)
+    opts, args = getopt.getopt(sys.argv[1:],"i:n:o:",["inport=","localnet=","localnetport="])
+    for opt, arg in opts:
+        if(opt in ("--inport","-i")):
+            inPort = int(arg)
+        elif(opt in ("--localnet","-n")):
+            localNetAddress = str(arg)
+        elif(opt in ("--localnetport","-o")):
+            localNetPort = int(arg)
+
+    mAST = Pantalla(inPort, localNetAddress, localNetPort)
     runPrototype(mAST)
