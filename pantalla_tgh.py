@@ -86,15 +86,17 @@ class Pantalla(PrototypeInterface):
             pygame.display.flip()
 
 if __name__=="__main__":
-    (inPort, localNetAddress, localNetPort) = (7878, "127.0.0.1", 8989)
-    opts, args = getopt.getopt(sys.argv[1:],"i:n:o:",["inport=","localnet=","localnetport="])
+    (inIp, inPort, localNetAddress, localNetPort) = ("127.0.0.1", 7878, "127.0.0.1", 8989)
+    opts, args = getopt.getopt(sys.argv[1:],"i:p:n:o:",["inip=", "inport=","localnet=","localnetport="])
     for opt, arg in opts:
-        if(opt in ("--inport","-i")):
+        if(opt in ("--inip","-i")):
+            inIp = str(arg)
+        elif(opt in ("--inport","-p")):
             inPort = int(arg)
         elif(opt in ("--localnet","-n")):
             localNetAddress = str(arg)
         elif(opt in ("--localnetport","-o")):
             localNetPort = int(arg)
 
-    mAST = Pantalla(inPort, localNetAddress, localNetPort)
+    mAST = Pantalla(inIp, inPort, localNetAddress, localNetPort)
     runPrototype(mAST)
