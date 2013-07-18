@@ -95,5 +95,5 @@ if __name__=="__main__":
         elif(opt in ("--localnetport","-o")):
             localNetPort = int(arg)
 
-    mAST = Pantalla(inIp, inPort, localNetAddress, localNetPort)
-    runPrototype(mAST)
+    mVLE = Pantalla(inIp, inPort, localNetAddress, localNetPort)
+    runPrototype(mVLE)
