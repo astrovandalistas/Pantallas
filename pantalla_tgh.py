@@ -28,15 +28,12 @@ class Pantalla(PrototypeInterface):
         self.screen.blit(self.background, (0, 0))
         pygame.display.flip()
 
-        s = "Aeffect Lab es un framework framework framework framework para facilitar la creación de modelos"
-        s += " afectivos de comunicación comunicacion comunicacion comunicación"
-        self.messageQ.put(("t","t",s.decode('utf-8')))
-
     def loop(self):
         self._checkEvent()
         ## check state
         if (not self.messageQ.empty()):
             (locale,type,txt) = self.messageQ.get()
+            txt = txt.replace('\0','')
             words = txt.split()
             lasrgestWord = max(txt.split(),key=len)
             for (index,w) in enumerate(words):
