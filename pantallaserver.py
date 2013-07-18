@@ -51,7 +51,6 @@ class PantallaServer(PrototypeInterface):
         ## ping
         if ((addrTokens[0].lower() == "localnet")
             and (addrTokens[1].lower() == "ping")):
-            print "got ping"
             self.lastPingTime = time.time()
 
 
@@ -78,6 +77,7 @@ class PantallaServer(PrototypeInterface):
                 self.oscClient.connect((ip, int(port)))
             except OSCClientError:
                 print "no connection to %s:%s, can't send message "%(ip,port)
+                del self.allClients[(ip,port)]
 
             clientIndex = (clientIndex+1)%len(self.allClients.keys())
 
@@ -98,6 +98,8 @@ class PantallaServer(PrototypeInterface):
                     self.oscClient.connect((ip, int(port)))
                 except OSCClientError:
                     print "no connection to %s:%s, can't send message "%(ip,port)
+                    del self.allClients[(ip,port)]
+
                 probability = 0.66
                 shuffle(self.oldMessages)
         if(len(self.oldMessages) > 10):

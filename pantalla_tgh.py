@@ -50,12 +50,6 @@ class Pantalla(PrototypeInterface):
                 raise KeyboardInterrupt
 
     def _fadeTextInOut(self,txt,bgndColor=(0,0,0),textColor=(255,255,255)):
-        alpha = 1
-        alphaD = 64
-        dispTime = 0
-        (FADEIN,FADEOUT,DISPLAY) = range(3)
-        currState = FADEIN
-
         mSurface = self.font.render(txt+" ", 1, textColor, bgndColor)
         mRect = mSurface.get_rect()
         scale = min(float(self.background.get_width())/mRect.width, float(mRect.width)/self.background.get_width())
@@ -63,24 +57,14 @@ class Pantalla(PrototypeInterface):
         mRect = mSurface.get_rect(centerx=self.background.get_width()/2,
                                   centery=self.background.get_height()/2)
 
-        while(alpha > 0):
-            if(currState is FADEIN):
-                alpha+=alphaD
-                if(alpha>255):
-                    dispTime = time.time()
-                    alpha = 255
-                    currState = DISPLAY
-            elif(currState is DISPLAY):
-                if(time.time()-dispTime > 0.2):
-                    currState = FADEOUT
-            elif(currState is FADEOUT):
-                alpha -= alphaD
-
-            mSurface.set_alpha(alpha)
-            self.background.fill(bgndColor)
-            self.background.blit(mSurface, mRect)
-            self.screen.blit(self.background, (0,0))
-            pygame.display.flip()
+        self.background.fill(bgndColor)
+        self.background.blit(mSurface, mRect)
+        self.screen.blit(self.background, (0,0))
+        pygame.display.flip()
+        time.sleep(0.33)
+        self.background.fill(bgndColor)
+        self.screen.blit(self.background, (0,0))
+        pygame.display.flip()
 
 if __name__=="__main__":
     (inIp, inPort, localNetAddress, localNetPort) = ("127.0.0.1", 7878, "127.0.0.1", 8989)
