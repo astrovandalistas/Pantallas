@@ -19,6 +19,8 @@ class PantallaServer(PrototypeInterface):
               and (addrTokens[1].lower() == "receivers")):
             for rcvr in stuff[0].split(','):
                 self.allReceivers[rcvr] = rcvr
+            if(self.subscribedToAll and not self.subscribedReceivers):
+                self.subscribeToAll()
         ## hijack /LocalNet/Add !
         elif ((addrTokens[0].lower() == "localnet")
             and (addrTokens[1].lower() == "add")):
@@ -46,6 +48,12 @@ class PantallaServer(PrototypeInterface):
             self.messageQ.put((addrTokens[1],
                                addrTokens[2],
                                stuff[0].decode('utf-8')))
+        ## ping
+        if ((addrTokens[0].lower() == "localnet")
+            and (addrTokens[1].lower() == "ping")):
+            print "got ping"
+            self.lastPingTime = time.time()
+
 
     def setup(self):
         self.allClients = {}
