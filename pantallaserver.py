@@ -4,6 +4,7 @@ import sys, time, subprocess, getopt
 sys.path.append("../LocalNet")
 from interfaces import PrototypeInterface, runPrototype
 from OSC import OSCClient, OSCMessage, OSCServer, getUrlStr, OSCClientError
+from random import random, shuffle
 
 class PantallaServer(PrototypeInterface):
     """ Pantalla prototype class
@@ -51,27 +52,62 @@ class PantallaServer(PrototypeInterface):
         self.oscClient = OSCClient()
         ## subscribe to all receivers from localnet
         self.subscribeToAll()
+        self.oldMessages = []
+        self.lastQueueCheck = time.time()
 
-    def loop(self):
-        ## check Queue, split stuff and send to clients
-        if (not self.messageQ.empty()):
-            (locale,type,txt) = self.messageQ.get()
-            clientIndex = 0
-            words = txt.split()
-            for w in words:
+    def _oneWordToEach(self, locale,type,txt):
+        clientIndex = 0
+        words = txt.split()
+        for w in words:
+            msg = OSCMessage()
+            msg.setAddress("/AeffectLab/"+locale+"/"+type)
+            msg.append(w.encode('utf-8'), 'b')
+            (ip,port) = self.allClients.keys()[clientIndex]
+
+            try:
+                self.oscClient.connect((ip, int(port)))
+                self.oscClient.sendto(msg, (ip, int(port)))
+                self.oscClient.connect((ip, int(port)))
+            except OSCClientError:
+                print "no connection to %s:%s, can't send message "%(ip,port)
+
+            clientIndex = (clientIndex+1)%len(self.allClients.keys())
+
+    def _oneMessageToEach(self, locale,type,txt):
+        clientKeys = self.allClients.keys()
+        ## get a random client to push the new message
+        shuffle(clientKeys,random)
+        self.oldMessages.append(txt)
+        probability = 1.1
+        for (ip,port) in clientKeys:
+            if(random() < probability):
                 msg = OSCMessage()
                 msg.setAddress("/AeffectLab/"+locale+"/"+type)
-                msg.append(w)
-                (ip,port) = self.allClients.keys()[clientIndex]
-
+                msg.append(self.oldMessages[-1].encode('utf-8'),'b')
                 try:
                     self.oscClient.connect((ip, int(port)))
                     self.oscClient.sendto(msg, (ip, int(port)))
                     self.oscClient.connect((ip, int(port)))
                 except OSCClientError:
                     print "no connection to %s:%s, can't send message "%(ip,port)
+                probability = 0.66
+                shuffle(self.oldMessages)
+        if(len(self.oldMessages) > 10):
+            self.oldMessages.pop()
 
-                clientIndex = (clientIndex+1)%len(self.allClients.keys())
+    def loop(self):
+        ## check Queue, split stuff and send to clients
+        if ((not self.messageQ.empty()) and 
+            (time.time()-self.lastQueueCheck > 20) and
+            (self.allClients)):
+            (locale,type,txt) = self.messageQ.get()
+
+            if(random() < 0.5):
+                self._oneMessageToEach(locale,type,txt)
+            else:
+                self._oneWordToEach(locale,type,txt)
+            print "check Q"
+            self.lastQueueCheck = time.time()
 
 if __name__=="__main__":
     (inIp, inPort, localNetAddress, localNetPort) = ("127.0.0.1", 8989, "127.0.0.1", 8900)
