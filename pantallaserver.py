@@ -17,6 +17,9 @@ class PantallaServer(PrototypeInterface):
         ## list of all receivers
         if ((addrTokens[0].lower() == "localnet")
               and (addrTokens[1].lower() == "receivers")):
+            ## as good, if not better than a ping
+            self.lastPingTime = time.time()
+            print "got receivers %s"%(stuff[0])        
             for rcvr in stuff[0].split(','):
                 self.allReceivers[rcvr] = rcvr
             if(self.subscribedToAll and not self.subscribedReceivers):
@@ -37,6 +40,7 @@ class PantallaServer(PrototypeInterface):
             msg = OSCMessage()
             msg.setAddress("/LocalNet/Receivers")
             msg.append(self.name)
+            print "got a request for receivers from %s:%s"%(ip,port)
             try:
                 #self.oscClient.connect((ip, port))
                 self.oscClient.sendto(msg, (ip, port))
