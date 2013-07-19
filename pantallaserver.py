@@ -125,7 +125,7 @@ class PantallaServer(PrototypeInterface):
             (self.allClients)):
             (locale,type,txt) = self.messageQ.get()
 
-            if(random() < 0.66):
+            if(random() < 0.8):
                 self._oneMessageToEach(locale,type,txt)
             else:
                 self._oneWordToEach(locale,type,txt)
