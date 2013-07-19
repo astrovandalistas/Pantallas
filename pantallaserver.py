@@ -52,6 +52,9 @@ class PantallaServer(PrototypeInterface):
             self.messageQ.put((addrTokens[1],
                                addrTokens[2],
                                stuff[0].decode('utf-8')))
+            self.messageQ.put((addrTokens[1],
+                               addrTokens[2],
+                               stuff[0].decode('utf-8')))
         ## ping
         if ((addrTokens[0].lower() == "localnet")
             and (addrTokens[1].lower() == "ping")):
@@ -66,6 +69,7 @@ class PantallaServer(PrototypeInterface):
                     print ("no connection to %s:%s, can't send bang"%(ip,port))
 
     def setup(self):
+        self.name = "VLE"
         self.allClients = {}
         self.oscClient = OSCClient()
         ## subscribe to all receivers from localnet
