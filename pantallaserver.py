@@ -112,11 +112,10 @@ class PantallaServer(PrototypeInterface):
             (self.allClients)):
             (locale,type,txt) = self.messageQ.get()
 
-            if(random() < 0.5):
+            if(random() < 0.66):
                 self._oneMessageToEach(locale,type,txt)
             else:
                 self._oneWordToEach(locale,type,txt)
-            print "check Q"
             self.lastQueueCheck = time.time()
 
 if __name__=="__main__":
