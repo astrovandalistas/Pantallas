@@ -69,6 +69,7 @@ class PantallaServer(PrototypeInterface):
                     print ("no connection to %s:%s, can't send bang"%(ip,port))
 
     def setup(self):
+        self.name = "VLE"
         self.allClients = {}
         self.oscClient = OSCClient()
         ## subscribe to all receivers from localnet
