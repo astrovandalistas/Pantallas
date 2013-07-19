@@ -121,7 +121,7 @@ class PantallaServer(PrototypeInterface):
     def loop(self):
         ## check Queue, split stuff and send to clients
         if ((not self.messageQ.empty()) and 
-            (time.time()-self.lastQueueCheck > 20) and
+            (time.time()-self.lastQueueCheck > 10) and
             (self.allClients)):
             (locale,type,txt) = self.messageQ.get()
 
