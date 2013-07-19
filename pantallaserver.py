@@ -6,7 +6,7 @@ from interfaces import PrototypeInterface, runPrototype
 from OSC import OSCClient, OSCMessage, OSCServer, getUrlStr, OSCClientError
 from random import random, shuffle
 
-class PantallaServer(PrototypeInterface):
+class VLE(PrototypeInterface):
     """ Pantalla prototype class
         all prototypes must define setup() and loop() functions
         self.messageQ will have all messages coming in from LocalNet """
@@ -69,7 +69,6 @@ class PantallaServer(PrototypeInterface):
                     print ("no connection to %s:%s, can't send bang"%(ip,port))
 
     def setup(self):
-        self.name = "VLE"
         self.allClients = {}
         self.oscClient = OSCClient()
         ## subscribe to all receivers from localnet
@@ -152,5 +151,5 @@ if __name__=="__main__":
         elif(opt in ("--localnetport","-o")):
             localNetPort = int(arg)
 
-    mVLE = PantallaServer(inIp, inPort, localNetAddress, localNetPort)
+    mVLE = VLE(inIp, inPort, localNetAddress, localNetPort)
     runPrototype(mVLE)
