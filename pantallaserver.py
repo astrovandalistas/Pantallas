@@ -38,9 +38,9 @@ class PantallaServer(PrototypeInterface):
             msg.setAddress("/LocalNet/Receivers")
             msg.append(self.name)
             try:
-                self.oscClient.connect((ip, port))
+                #self.oscClient.connect((ip, port))
                 self.oscClient.sendto(msg, (ip, port))
-                self.oscClient.connect((ip, port))
+                #self.oscClient.connect((ip, port))
             except OSCClientError:
                 print "no connection to %s:%s, can't send list of receivers"%(ip,port)
         ## actual message from AEffect Network !!
@@ -55,9 +55,9 @@ class PantallaServer(PrototypeInterface):
             # forward to clients
             for (ip,port) in self.allClients.keys():
                 try:
-                    self.oscClient.connect((ip, int(port)))
+                    #self.oscClient.connect((ip, int(port)))
                     self.oscClient.sendto(self.oscPingMessage, (ip, int(port)))
-                    self.oscClient.connect((ip, int(port)))
+                    #self.oscClient.connect((ip, int(port)))
                 except OSCClientError:
                     print ("no connection to %s:%s, can't send bang"%(ip,port))
 
@@ -84,9 +84,9 @@ class PantallaServer(PrototypeInterface):
             (ip,port) = self.allClients.keys()[clientIndex]
 
             try:
-                self.oscClient.connect((ip, int(port)))
+                #self.oscClient.connect((ip, int(port)))
                 self.oscClient.sendto(msg, (ip, int(port)))
-                self.oscClient.connect((ip, int(port)))
+                #self.oscClient.connect((ip, int(port)))
             except OSCClientError:
                 print "no connection to %s:%s, can't send message "%(ip,port)
                 #del self.allClients[(ip,port)]
@@ -106,9 +106,9 @@ class PantallaServer(PrototypeInterface):
                 msg.setAddress("/AeffectLab/"+locale+"/"+type)
                 msg.append(self.oldMessages[-1].encode('utf-8'),'b')
                 try:
-                    self.oscClient.connect((ip, int(port)))
+                    #self.oscClient.connect((ip, int(port)))
                     self.oscClient.sendto(msg, (ip, int(port)))
-                    self.oscClient.connect((ip, int(port)))
+                    #self.oscClient.connect((ip, int(port)))
                 except OSCClientError:
                     print "no connection to %s:%s, can't send message "%(ip,port)
                     #del self.allClients[(ip,port)]
