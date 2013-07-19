@@ -52,7 +52,14 @@ class PantallaServer(PrototypeInterface):
         if ((addrTokens[0].lower() == "localnet")
             and (addrTokens[1].lower() == "ping")):
             self.lastPingTime = time.time()
-
+            # forward to clients
+            for (ip,port) in self.allClients.keys():
+                try:
+                    self.oscClient.connect((ip, int(port)))
+                    self.oscClient.sendto(self.oscPingMessage, (ip, int(port)))
+                    self.oscClient.connect((ip, int(port)))
+                except OSCClientError:
+                    print ("no connection to %s:%s, can't send bang"%(ip,port))
 
     def setup(self):
         self.allClients = {}
@@ -61,6 +68,11 @@ class PantallaServer(PrototypeInterface):
         self.subscribeToAll()
         self.oldMessages = []
         self.lastQueueCheck = time.time()
+        self.oscPingMessage = OSCMessage()
+        self.oscPingMessage.setAddress("/LocalNet/Ping")
+        ## use empty byte blob
+        self.oscPingMessage.append("", 'b')
+
 
     def _oneWordToEach(self, locale,type,txt):
         clientIndex = 0
