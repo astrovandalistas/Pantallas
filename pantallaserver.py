@@ -90,8 +90,9 @@ class PantallaServer(PrototypeInterface):
             except OSCClientError:
                 print "no connection to %s:%s, can't send message "%(ip,port)
                 del self.allClients[(ip,port)]
-
-            clientIndex = (clientIndex+1)%len(self.allClients.keys())
+            
+            if (self.allClients):
+                clientIndex = (clientIndex+1)%len(self.allClients.keys())
 
     def _oneMessageToEach(self, locale,type,txt):
         clientKeys = self.allClients.keys()
