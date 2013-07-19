@@ -33,13 +33,13 @@ class Pantalla(PrototypeInterface):
         ## check state
         if (not self.messageQ.empty()):
             (locale,type,txt) = self.messageQ.get()
-            txt = txt.replace('\0','')
+            txt = txt.replace('\0',' ')
             words = txt.split()
-            lasrgestWord = max(txt.split(),key=len)
+            largestWord = max(txt.split(),key=len)
             for (index,w) in enumerate(words):
                 self._checkEvent()
-                bgndC = (0,0,0) if(index%2 or w == lasrgestWord) else (255,255,255)
-                textC = (128,0,0) if (w == lasrgestWord) else((255,255,255) if index%2 else (0,0,0))
+                bgndC = (0,0,0) if(index%2 or w == largestWord) else (255,255,255)
+                textC = (128,0,0) if (w == largestWord) else((255,255,255) if index%2 else (0,0,0))
                 self._fadeTextInOut(w,bgndC,textC)
                 index += 1
 
