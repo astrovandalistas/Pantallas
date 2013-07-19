@@ -89,7 +89,7 @@ class PantallaServer(PrototypeInterface):
                 self.oscClient.connect((ip, int(port)))
             except OSCClientError:
                 print "no connection to %s:%s, can't send message "%(ip,port)
-                del self.allClients[(ip,port)]
+                #del self.allClients[(ip,port)]
             
             if (self.allClients):
                 clientIndex = (clientIndex+1)%len(self.allClients.keys())
@@ -111,7 +111,7 @@ class PantallaServer(PrototypeInterface):
                     self.oscClient.connect((ip, int(port)))
                 except OSCClientError:
                     print "no connection to %s:%s, can't send message "%(ip,port)
-                    del self.allClients[(ip,port)]
+                    #del self.allClients[(ip,port)]
 
                 probability = 0.66
                 shuffle(self.oldMessages)
